@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+      integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+      crossorigin=""
+    ></script>
+    <style>
+      #mymap {
+        height: 500px;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Geolocation</h1>
+    <p>
+      latitude: <span id="latitude"></span>&deg;<br />
+      longitude: <span id="longitude"></span>&deg;
+    </p>
+    <div id="mymap"></div>
+    <script>
+      if ('geolocation' in navigator) {
+        console.log('geolocation available');
+        navigator.geolocation.getCurrentPosition(position => {
+          lat = -33.4884;
+          lon = -70.5183;
+          console.log(lat, lon);
+          document.getElementById('latitude').textContent = lat;
+          document.getElementById('longitude').textContent = lon;
+          const locations = [["Bird #1",lat + 0.002, lon + 0.001],
+	                          	["Scoot #1",lat + 0.003, lon - 0.001],
+	                          	["Bird #2",lat + 0.001, lon + -0.002],
+	                          	["Movo #1",lat -0.003, lon + -0.005],
+                              ["Lime #1",lat + 0.003, lon - 0.005]];
+          var greenIcon = L.icon({
+          iconUrl: '/images/icons/navigation.svg',
+          iconSize:     [38, 95], // size of the icon
+          iconAnchor:   [22, 94], // point of the icon which will correspond to marker's locati
+          popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+          });
+          var lime = L.icon({
+          iconUrl: '/images/icons/scoot.png',
+          iconSize:     [38, 38], // size of the icon
+          iconAnchor:   [22, 94], // point of the icon which will correspond to marker's locati
+          popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+          });
+          var movo = L.icon({
+          iconUrl: '/images/icons/movo.png',
+          iconSize:     [38, 38], // size of the icon
+          iconAnchor:   [22, 94], // point of the icon which will correspond to marker's locati
+          popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+          });
+          var scoot = L.icon({
+          iconUrl: '/images/icons/scoot2.png',
+          iconSize:     [38, 38], // size of the icon
+          iconAnchor:   [22, 94], // point of the icon which will correspond to marker's locati
+          popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+          });
+          var bird= L.icon({
+          iconUrl: '/images/icons/bird.png',
+          iconSize:     [38, 38], // size of the icon
+          iconAnchor:   [22, 94], // point of the icon which will correspond to marker's locati
+          popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+          });
+
+          const mymap = L.map('mymap').setView([lat, lon], 15);
+          const attribution =
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+          const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+          const tiles = L.tileLayer(tileUrl, { attribution });
+          L.Control.Watermark = L.Control.extend({
+	        	onAdd: function(mymap) {
+			      var img = L.DomUtil.create('img');
+			
+		      	img.src = 'images/icons/logohopon.png';
+			      img.style.width = '200px';
+			
+		      	return img;
+	        	},
+		
+	        	onRemove: function(mymap) {
+		        	// Nothing to do here
+	        	}
+          });
+          L.control.watermark = function(opts) {
+	      	return new L.Control.Watermark(opts);
+	         }
+	
+	        L.control.watermark({ position: 'bottomleft' }).addTo(mymap);
+          tiles.addTo(mymap);
+          const marker= L.marker([lat,lon], {icon: greenIcon}).bindPopup("<b> Hola! </b><br> Ubicación Actual").addTo(mymap);
+          const marker1 = L.marker([locations[0][1],locations[0][2]], {icon: bird}).bindPopup("<b>Hola! Soy el Scooter: </b> " + locations[0][0]+ "<br> Precio Desbloqueo: $400 <br> Precio x Minuto: $50").addTo(mymap);
+          const marker2 = L.marker([locations[1][1],locations[1][2]], {icon: scoot}).bindPopup("<b>Hola! Soy el Scooter: </b> " + locations[1][0]+ "<br> Precio Desbloqueo: $100 <br> Precio x Minuto: $100").addTo(mymap);
+          const marker3 = L.marker([locations[2][1],locations[2][2]], {icon: bird}).bindPopup("<b>Hola! Soy el Scooter: </b> " + locations[2][0]+ "<br> Precio Desbloqueo: $200 <br> Precio x Minuto: $200").addTo(mymap);
+          const marker4 = L.marker([locations[3][1],locations[3][2]], {icon: movo}).bindPopup("<b>Hola! Soy el Scooter: </b>" + locations[3][0] + "<br> Precio Desbloqueo: $350 <br> Precio x Minuto: $150").addTo(mymap);
+          const marker5 = L.marker([locations[4][1],locations[4][2]], {icon: lime}).bindPopup("<b>Hola! Soy el Scooter: </b> " + locations[4][0] + "<br> Precio Desbloqueo: $400 <br> Precio x Minuto: $100").addTo(mymap);
+              
+        });
+      } else {
+        console.log('geolocation not available');
+      }
+    </script>
+  </body>
+</html>

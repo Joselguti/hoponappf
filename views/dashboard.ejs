@@ -1,0 +1,8 @@
+<%- include('includes/header.ejs') %>
+<%- include('includes/nav.ejs') %>
+<% if (isAuthenticated) { %>
+<%- include('geoloc.ejs') %>	
+<% } else { %>
+<h1>Debe estar autenticado para ver este sitio.</h1>
+<% } %>
+<%- include('includes/footer.ejs') %>

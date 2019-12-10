@@ -1,0 +1,44 @@
+<%- include('../includes/header.ejs') %>
+<%- include('../includes/nav.ejs') %>
+
+<div class="container mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form action="/register" method="POST">
+        <div class="form-group row">
+          <label for="nombre" class="col-sm-1-12 col-form-label">nombre</label>
+          <input name="nombre" class="form-control" type="text" id="nombre" placeholder="Aureliano">
+        </div>
+        <div class="form-group row">
+          <label for="apellido" class="col-sm-1-12 col-form-label">apellido</label>
+          <input name="apellido" class="form-control" type="text" id="apellido" placeholder="Buendía">
+        </div>
+        <div class="form-group row">
+          <label for="email" class="col-sm-1-12 col-form-label">Email</label>
+          <input name="email" class="form-control" type="email" id="email" placeholder="example@gmail.com">
+        </div>
+        <div class="form-group row">
+          <label for="number" class="col-sm-1-12 col-form-label">Numero de telefono</label>
+          <input name="number" class="form-control" type="number" id="number" min="56900000000" max="56999999999"placeholder="56912341234">
+        </div>
+        <div class="form-group row">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" id="password" placeholder="">
+        </div>
+        <div class="form-group row">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="">
+        </div>
+        <div class="form-group row">
+          <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<%- include('../includes/footer.ejs') %>

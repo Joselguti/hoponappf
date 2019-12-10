@@ -30,7 +30,7 @@
     </p>
     <div id="mymap"></div>
     <script>
-      if ('geolocation' in navigator) {
+      
         console.log('geolocation available');
         navigator.geolocation.getCurrentPosition(position => {
           lat = -33.4884;
@@ -107,9 +107,6 @@
           const marker5 = L.marker([locations[4][1],locations[4][2]], {icon: lime}).bindPopup("<b>Hola! Soy el Scooter: </b> " + locations[4][0] + "<br> Precio Desbloqueo: $400 <br> Precio x Minuto: $100").addTo(mymap);
               
         });
-      } else {
-        console.log('geolocation not available');
-      }
     </script>
   </body>
 </html>
